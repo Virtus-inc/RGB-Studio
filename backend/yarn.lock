@@ -213,8 +213,11 @@ __metadata:
   resolution: "backend@workspace:."
   dependencies:
     bcrypt: "npm:^5.1.1"
+    dotenv: "npm:^16.4.5"
     express: "npm:^4.19.2"
     express-session: "npm:^1.18.0"
+    fastest-validator: "npm:^1.18.0"
+    lodash: "npm:^4.17.21"
     mongoose: "npm:^8.4.0"
     nodemon: "npm:^3.1.0"
   languageName: unknown
@@ -519,6 +522,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv@npm:^16.4.5":
+  version: 16.4.5
+  resolution: "dotenv@npm:16.4.5"
+  checksum: 48d92870076832af0418b13acd6e5a5a3e83bb00df690d9812e94b24aff62b88ade955ac99a05501305b8dc8f1b0ee7638b18493deb6fe93d680e5220936292f
+  languageName: node
+  linkType: hard
+
 "eastasianwidth@npm:^0.2.0":
   version: 0.2.0
   resolution: "eastasianwidth@npm:0.2.0"
@@ -666,6 +676,13 @@ __metadata:
     utils-merge: "npm:1.0.1"
     vary: "npm:~1.1.2"
   checksum: e82e2662ea9971c1407aea9fc3c16d6b963e55e3830cd0ef5e00b533feda8b770af4e3be630488ef8a752d7c75c4fcefb15892868eeaafe7353cb9e3e269fdcb
+  languageName: node
+  linkType: hard
+
+"fastest-validator@npm:^1.18.0":
+  version: 1.18.0
+  resolution: "fastest-validator@npm:1.18.0"
+  checksum: 7ad827f1df9b6dcd179ec35a7204868b222a1316fa28e8eecb4ab231e36016eff893ee5ac558deb5e86482a01c5b0d91f15ca79286ad7f915daebf9cfcd0c5a3
   languageName: node
   linkType: hard
 
@@ -1105,6 +1122,13 @@ __metadata:
   version: 2.6.3
   resolution: "kareem@npm:2.6.3"
   checksum: a5a3e2932cf54a300bf1a9936a2d1695f409066ce213ec3cd26bf788ac20d150edde21877a18b073efa219cab56f0192f710d87d95dde0829ff44666d9b15f76
+  languageName: node
+  linkType: hard
+
+"lodash@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash@npm:4.17.21"
+  checksum: d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
   languageName: node
   linkType: hard
 

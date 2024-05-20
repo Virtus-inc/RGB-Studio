@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(
   expressSession({
-    name: 'mosalas.sid',
+    name: 'rgb-session',
     resave: false,
     saveUninitialized: false,
     secret: SESSION_SECRET,

@@ -1,24 +1,18 @@
 <template>
   <div>
-    <v-img
-      class="mx-auto my-6"
-      max-width="228"
-      src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
-    ></v-img>
-
     <v-card
-      class="mx-auto pa-12 pb-8"
+      class="mx-auto pa-12 pb-8 mt-10"
       elevation="8"
       max-width="448"
       rounded="lg"
     >
       <form @submit.prevent="sendForm">
-        <div class="text-subtitle-1 text-medium-emphasis">Account</div>
+        <div class="text-subtitle-1 text-medium-emphasis">Аккаунт</div>
 
         <v-text-field
           v-model="form.email"
           density="compact"
-          placeholder="Email address"
+          placeholder="Пошта"
           prepend-inner-icon="mdi-email-outline"
           variant="outlined"
         />
@@ -26,7 +20,7 @@
         <v-text-field
           v-model="form.name"
           density="compact"
-          placeholder="Name"
+          placeholder="Ім'я"
           prepend-inner-icon="mdi-information-slab-circle-outline"
           variant="outlined"
         />
@@ -34,21 +28,13 @@
         <v-text-field
           v-model="form.surname"
           density="compact"
-          placeholder="Surname"
+          placeholder="Прізвище"
           prepend-inner-icon="mdi-information-slab-circle-outline"
           variant="outlined"
         />
 
         <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-          Password
-
-          <a
-            class="text-caption text-decoration-none text-blue"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Forgot login password?</a>
+          Пароль
         </div>
 
         <v-text-field
@@ -56,7 +42,7 @@
           :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
           :type="visible ? 'text' : 'password'"
           density="compact"
-          placeholder="Enter your password"
+          placeholder="Введіть пароль"
           prepend-inner-icon="mdi-lock-outline"
           variant="outlined"
           @click:append-inner="visible = !visible"
@@ -70,19 +56,20 @@
           block
           type="submit"
         >
-          Sign up
+          Зареєструватись
         </v-btn>
       </form>
 
       <v-card-text class="text-center">
-        <a
+        Вже є аккаунт ?
+        <NuxtLink
+          to="/auth/login"
           class="text-blue text-decoration-none"
           href="#"
           rel="noopener noreferrer"
-          target="_blank"
         >
-          Sign in now <v-icon icon="mdi-chevron-right"></v-icon>
-        </a>
+        Вхід <v-icon icon="mdi-chevron-right"></v-icon>
+      </NuxtLink>
       </v-card-text>
     </v-card>
   </div>

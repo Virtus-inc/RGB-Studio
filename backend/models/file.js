@@ -14,13 +14,13 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    type: {
+    contentType: {
       type: String,
       required: true,
     },
     data: {
-      data: Buffer,
-      contentType: String
+      type: Buffer,
+      required: true,
     },
     ownerId: {
       type: mongoose.Schema.ObjectId,

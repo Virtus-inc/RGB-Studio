@@ -18,7 +18,7 @@ exports.register = async (req, res) => {
 	const userName = await User.findOne({ name: req.body.name });
 
 	if(userName) {
-		return res.status(404).json({ message: 'Account exists.' });
+		return res.status(409).json({ message: 'Account exists.' });
 	}
 
 	const user = await User.create({...req.body, password: hashedPassword});
@@ -50,7 +50,7 @@ exports.login = async (req, res) => {
 		return res.status(401).json({ message: 'password is not correct.' });
 	}
 
-	req.session.userId = user.id;
+	req.session.userId = user._id;
 
 	res.json({ message: 'you are successfully logged in.' });
 }
@@ -59,7 +59,6 @@ exports.logout = (req, res) => {
 	delete req.session.userId;
 	res.json({ message: 'you are successfully logged out.' });
 }
-
 
 exports.loginRequired = async (req, res, next) => {
 	if(!req.session || !req.session.userId) {

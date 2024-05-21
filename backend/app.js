@@ -1,6 +1,8 @@
 const express = require('express');
 const expressSession = require('express-session');
 const authRoutes = require('./routes/auth');
+const filesRoutes = require('./routes/files');
+const usersRoutes = require('./routes/users');
 const { SESSION_SECRET, IS_PRODUCTION } = require('./configs');
 
 const app = express();
@@ -25,6 +27,8 @@ app.use(
     }
   })
 )
-app.use('/auth', authRoutes)
+app.use('/auth', authRoutes);
+app.use('/', filesRoutes);
+app.use('/', usersRoutes);
 
 module.exports = app;

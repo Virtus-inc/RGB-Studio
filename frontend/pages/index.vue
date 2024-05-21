@@ -1,3 +1,5 @@
 <template>
-  <h1>Index page</h1>
+  <h1>
+    Welcome to RBG-Studio
+  </h1>
 </template>

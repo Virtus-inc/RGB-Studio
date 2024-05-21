@@ -1,9 +1,12 @@
 <template>
   <NuxtLayout>
     <v-app>
-      <v-container>
-        <NuxtPage/>
-      </v-container>
+      <AppHeader />
+      <NuxtPage/>
     </v-app>
   </NuxtLayout>
 </template>
+
+<script setup lang="ts">
+import { AppHeader } from '#components'
+</script>

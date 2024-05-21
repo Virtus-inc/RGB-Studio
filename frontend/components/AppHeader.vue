@@ -9,43 +9,75 @@
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
   
         <v-toolbar-title>
-            <h4>
-                <strong class="red">R</strong>
-                <strong class="green">G</strong>
-                <strong class="blue">B</strong>-Studio
-            </h4>
+            <NuxtLink
+                to="/"
+                class="text-black text-decoration-none"
+                rel="noopener noreferrer"
+            >
+                <h4>
+                    <strong class="red">R</strong>
+                    <strong class="green">G</strong>
+                    <strong class="blue">B</strong>-Studio
+                </h4>
+            </NuxtLink>
         </v-toolbar-title>
   
         <v-spacer></v-spacer>
-  
-        <v-btn prepend-icon="mdi-file-multiple" variant="text">
-          Мої файли
-        </v-btn>
-  
-        <v-btn prepend-icon="mdi-account" variant="text">
-          Профіль
-        </v-btn>
-        <NuxtLink
-            to="/auth/login"
-            class="text-black text-decoration-none"
-            rel="noopener noreferrer"
-        >
-            <v-btn prepend-icon="mdi-check" variant="text">
-                Вхід
-            </v-btn>
-        </NuxtLink>
-        <NuxtLink
-            to="/auth/registration"
-            class="text-black text-decoration-none"
-            rel="noopener noreferrer"
-        >
-            <v-btn prepend-icon="mdi-plus" variant="text">
-                Реєстрація
-            </v-btn>
-        </NuxtLink>
+        <div v-if="data">
+            <NuxtLink
+                to="/files"
+                class="text-black text-decoration-none"
+                rel="noopener noreferrer"
+            >
+                <v-btn prepend-icon="mdi-file-multiple" variant="text">
+                    Мої файли
+                </v-btn>
+            </NuxtLink>
+    
+            <NuxtLink
+                to="/profile"
+                class="text-black text-decoration-none"
+                rel="noopener noreferrer"
+            >
+                <v-btn prepend-icon="mdi-account" variant="text">
+                    Профіль
+                </v-btn>
+            </NuxtLink>
+        </div>
+        <div v-else>
+            <NuxtLink
+                to="/auth/login"
+                class="text-black text-decoration-none"
+                rel="noopener noreferrer"
+            >
+                <v-btn prepend-icon="mdi-check" variant="text">
+                    Вхід
+                </v-btn>
+            </NuxtLink>
+            <NuxtLink
+                to="/auth/registration"
+                class="text-black text-decoration-none"
+                rel="noopener noreferrer"
+            >
+                <v-btn prepend-icon="mdi-plus" variant="text">
+                    Реєстрація
+                </v-btn>
+            </NuxtLink>
+        </div>
       </v-toolbar>
     </v-card>
 </template>
+
+<script setup lang="ts">
+import { useData } from '@/composables/useData';
+import { watchEffect } from 'vue';
+const { data } = useData();
+
+
+watchEffect(() => {
+  console.log('Yeah: ', data.value);
+});
+</script>
 
 <style scoped>
 .red {

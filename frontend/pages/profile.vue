@@ -6,42 +6,38 @@
       width="800"
       rounded="lg"
     >
+    <cropper
+		:src="img"
+		@change="change"
+	/>
       <form @submit.prevent="submit">
+        <v-text-field
+          v-model="email.value.value"
+          :error-messages="email.errorMessage.value"
+          label="Пошта"
+        />
+
         <v-text-field
           v-model="name.value.value"
           :counter="10"
           :error-messages="name.errorMessage.value"
-          label="Name"
+          label="Ім'я"
         />
-  
+
         <v-text-field
-          v-model="phone.value.value"
-          :counter="7"
-          :error-messages="phone.errorMessage.value"
-          label="Phone Number"
+          v-model="surname.value.value"
+          :counter="10"
+          :error-messages="name.errorMessage.value"
+          label="Прізвище"
         />
-  
+
         <v-text-field
-          v-model="email.value.value"
-          :error-messages="email.errorMessage.value"
-          label="E-mail"
+          v-model="password.value.value"
+          type="password"
+          :error-messages="name.errorMessage.value"
+          label="Пароль"
         />
-  
-        <v-select
-          v-model="select.value.value"
-          :error-messages="select.errorMessage.value"
-          :items="items"
-          label="Select"
-        />
-  
-        <v-checkbox
-          v-model="checkbox.value.value"
-          :error-messages="checkbox.errorMessage.value"
-          label="Option"
-          type="checkbox"
-          value="1"
-        />
-  
+
         <v-btn
           class="me-4"
           type="submit"
@@ -59,41 +55,43 @@
   <script setup>
     import { ref } from 'vue'
     import { useField, useForm } from 'vee-validate'
+    import { Cropper } from 'vue-advanced-cropper';
+    import 'vue-advanced-cropper/dist/style.css';
+
+    const img = 'https://images.pexels.com/photos/4323307/pexels-photo-4323307.jpeg';
+
+    const change = ({ coordinates, canvas }) => {
+        console.log(coordinates, canvas);
+    }
   
     const { handleSubmit, handleReset } = useForm({
       validationSchema: {
-        name (value) {
-          if (value?.length >= 2) return true
-  
-          return 'Name needs to be at least 2 characters.'
-        },
-        phone (value) {
-          if (value?.length > 9 && /[0-9-]+/.test(value)) return true
-  
-          return 'Phone number needs to be at least 9 digits.'
-        },
         email (value) {
           if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
   
-          return 'Must be a valid e-mail.'
+          return 'Має бути дійсна електронна адреса.'
         },
-        select (value) {
-          if (value) return true
+        name (value) {
+          if (value?.length >= 2) return true
   
-          return 'Select an item.'
+          return 'Ім\'я має містити принаймні 2 символи.'
         },
-        checkbox (value) {
-          if (value === '1') return true
+        surname (value) {
+          if (value?.length >= 2) return true
   
-          return 'Must be checked.'
+          return 'Ім\'я має містити принаймні 2 символи.'
+        },
+        password (value) {
+          if (value?.length >= 6) return true
+  
+          return 'Пароль має містити принаймні 6 символів.'
         },
       },
     })
     const name = useField('name')
-    const phone = useField('phone')
+    const surname = useField('surname')
     const email = useField('email')
-    const select = useField('select')
-    const checkbox = useField('checkbox')
+    const password = useField('password')
   
     const items = ref([
       'Item 1',

@@ -60,31 +60,46 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useData } from '@/composables/useData';
+import { useRouter } from 'nuxt/app'
 
-const form = ref({
+interface LoginForm {
+  name: string;
+  password: string;
+}
+
+interface UserData {
+  _id: string;
+  name: string;
+  surname: string;
+  email: string;
+}
+
+const form = ref<LoginForm>({
   name: '',
   password: ''
 });
 
 const visible = ref(false);
+const { setUserData } = useData();
+const router = useRouter();
 
 const sendForm = async () => {
   try {
-    const response = await $fetch('http://localhost:5000/auth/login', {
+    const response = await $fetch<UserData>('http://localhost:5000/auth/login', {
       method: "POST",
       body: JSON.stringify(form.value),
       headers: {
         'Content-Type': 'application/json'
       }
     });
-    
-    if (response && typeof response === 'object') {
-      console.log('Registration successful', response);
-    } else {
-      console.error('Unexpected response format', response);
+
+    if (response) {
+      setUserData(response);
+      router.push('/profile');
     }
   } catch (error) {
-    console.error('Error during registration', error);
+    console.error('Error during login', error);
   }
 };
 </script>

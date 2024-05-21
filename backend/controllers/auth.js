@@ -52,7 +52,7 @@ exports.login = async (req, res) => {
 
 	req.session.userId = user._id;
 
-	res.json({ message: 'you are successfully logged in.' });
+	res.json({ message: 'you are successfully logged in.', user: _.omit(user.toObject(), dbSecretFields)});
 }
 
 exports.logout = (req, res) => {

@@ -15,6 +15,12 @@ exports.register = async (req, res) => {
 
 	const hashedPassword = await bcrypt.hash(req.body.password, 12);
 
+	const userName = await User.findOne({ name: req.body.name });
+
+	if(userName) {
+		return res.status(404).json({ message: 'Account exists.' });
+	}
+
 	const user = await User.create({...req.body, password: hashedPassword});
 
 	req.session.userId = user.id;

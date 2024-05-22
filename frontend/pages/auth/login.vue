@@ -60,7 +60,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useData } from '@/composables/useData';
+import { useUserData } from '@/composables/useData';
 import { useRouter } from 'nuxt/app'
 
 interface LoginForm {
@@ -81,7 +81,7 @@ const form = ref<LoginForm>({
 });
 
 const visible = ref(false);
-const { setUserData } = useData();
+const { setUserData } = useUserData();
 const router = useRouter();
 
 const sendForm = async () => {
@@ -103,15 +103,3 @@ const sendForm = async () => {
   }
 };
 </script>
-
-<style scoped>
-.text-subtitle-1 {
-  font-size: 1.25rem;
-}
-.text-medium-emphasis {
-  color: rgba(0, 0, 0, 0.6);
-}
-.text-blue {
-  color: blue;
-}
-</style>

@@ -5,7 +5,7 @@ interface UserData {
   email: string;
 }
 
-export const useData = () => {
+export const useUserData = () => {
   const data = useState<UserData | null>('userData', () => null);
 
   const setUserData = (newData: UserData) => {

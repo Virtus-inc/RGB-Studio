@@ -69,14 +69,8 @@
 </template>
 
 <script setup lang="ts">
-import { useData } from '@/composables/useData';
-import { watchEffect } from 'vue';
-const { data } = useData();
-
-
-watchEffect(() => {
-  console.log('Yeah: ', data.value);
-});
+import { useUserData } from '@/composables/useData';
+const { data } = useUserData();
 </script>
 
 <style scoped>

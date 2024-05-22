@@ -77,7 +77,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useData } from '@/composables/useData';
+import { useUserData } from '@/composables/useData';
 import { useRouter } from 'nuxt/app'
 
 interface RegistrationForm {
@@ -103,7 +103,7 @@ const form = ref<RegistrationForm>({
 
 
 const visible = ref(false);
-const { setUserData } = useData();
+const { setUserData } = useUserData();
 const router = useRouter();
 
 const sendForm = async () => {

@@ -119,7 +119,6 @@ const sendForm = async () => {
     
     if (response) {
       setUserData(response);
-      console.log('Registration successful', response);
       router.push('/profile');
     }
   } catch (error) {

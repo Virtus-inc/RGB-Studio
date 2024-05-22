@@ -90,7 +90,6 @@ const handleAddFile = async (error: any, file: any) => {
     });
 
     if (response) {
-      console.log('File uploaded successfully: ', response);
       getFiles();
     }
   } catch (error) {
@@ -115,8 +114,6 @@ const getFiles = async () => {
       state.surname.value = response.user.surname;
 
       files.value = response.files; // Обновляем весь массив файлов
-
-      console.log('Обновленный пакет файлов: ', files.value);
     }
   } catch (error) {
     console.error('Error during login', error);

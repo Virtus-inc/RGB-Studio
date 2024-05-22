@@ -74,16 +74,11 @@ const getFiles = async () => {
       credentials: "include"
     });
 
-    console.log(data.value.user._id);
-    console.log(response)
-
     if (response && response.user) {
       state.email = response.user.email;
       state.name = response.user.name;
       state.surname = response.user.surname;
       state.files = [...response.user.files];
-
-      console.log('Обновленный пакет файлов: ', state);
     }
   } catch (error) {
     console.error('Error during login', error);

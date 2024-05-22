@@ -107,7 +107,6 @@ const updateUser = async () => {
     if (!response.ok) {
       throw new Error(`Ошибка: ${response.statusText}`);
     }
-    console.log('User updated successfully:', data);
   } catch (error) {
     console.error('Error updating user:', error);
   }

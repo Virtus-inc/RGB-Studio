@@ -6,41 +6,36 @@
     width="800"
     rounded="lg"
   >
-    <cropper
+    <!-- <cropper
       :src="img"
       @change="change"
-    />
+    /> -->
     <form @submit.prevent="submit">
       <v-text-field
-        v-model="state.email.value"
-        :error-messages="state.email.errorMessage"
+        v-model="state.email"
         label="Пошта"
       />
 
       <v-text-field
-        v-model="state.name.value"
-        :counter="10"
-        :error-messages="state.name.errorMessage"
+        v-model="state.name"
         label="Ім'я"
       />
 
       <v-text-field
-        v-model="state.surname.value"
-        :counter="10"
-        :error-messages="state.surname.errorMessage"
+        v-model="state.surname"
         label="Прізвище"
       />
 
       <v-text-field
-        v-model="state.password.value"
+        v-model="state.password"
         type="password"
-        :error-messages="state.password.errorMessage"
         label="Пароль"
       />
 
       <v-btn
         class="me-4"
         type="submit"
+        @click="updateUser()"
       >
         submit
       </v-btn>
@@ -54,63 +49,30 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import { useForm } from 'vee-validate'
-import { Cropper } from 'vue-advanced-cropper';
-import 'vue-advanced-cropper/dist/style.css';
+// import { Cropper } from 'vue-advanced-cropper';
+// import 'vue-advanced-cropper/dist/style.css';
 import { useUserData } from '~/composables/useUserData';
 
-const initialState = {
-  name: { value: '', errorMessage: '' },
-  email: { value: '', errorMessage: '' },
-  surname: { value: '', errorMessage: '' },
-  password: { value: '', errorMessage: '' },
-}
+// const img = 'https://images.pexels.com/photos/4323307/pexels-photo-4323307.jpeg';
 
-const img = 'https://images.pexels.com/photos/4323307/pexels-photo-4323307.jpeg';
+// const change = ({ coordinates, canvas }) => {
+//   console.log(coordinates, canvas);
+// }
 
-const change = ({ coordinates, canvas }) => {
-  console.log(coordinates, canvas);
-}
-
-const { handleSubmit, handleReset } = useForm({
-  validationSchema: {
-    email (value) {
-      if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
-
-      return 'Має бути дійсна електронна адреса.'
-    },
-    name (value) {
-      if (value?.length >= 2) return true
-
-      return 'Ім\'я має містити принаймні 2 символи.'
-    },
-    surname (value) {
-      if (value?.length >= 2) return true
-
-      return 'Прізвище має містити принаймні 2 символи.'
-    },
-    password (value) {
-      if (value?.length >= 6) return true
-
-      return 'Пароль має містити принаймні 6 символів.'
-    },
-  },
-})
+const form = {
+  email: '',
+  name: '',
+  surname: '',
+  password: ''
+};
 
 const state = reactive({
-  ...initialState,
-})
+  ...form
+}) 
 
-const items = ref([
-  'Item 1',
-  'Item 2',
-  'Item 3',
-  'Item 4',
-])
-
-const submit = handleSubmit(values => {
+const submit = (values) => {
   alert(JSON.stringify(values, null, 2))
-})
+}
 
 const { data } = useUserData();
 
@@ -122,12 +84,32 @@ const getUser = async () => {
     });
 
     if (response && response.user) {
-      state.email.value = response.user.email;
-      state.name.value = response.user.name;
-      state.surname.value = response.user.surname;
+      state.email = response.user.email;
+      state.name = response.user.name;
+      state.surname = response.user.surname;
     }
   } catch (error) {
     console.error('Error during login', error);
+  }
+};
+
+const updateUser = async () => {
+  try {
+    const response = await fetch(`http://localhost:5000/users/${data.value.user._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(serialize),
+      credentials: "include"
+    });
+
+    if (!response.ok) {
+      throw new Error(`Ошибка: ${response.statusText}`);
+    }
+    console.log('User updated successfully:', data);
+  } catch (error) {
+    console.error('Error updating user:', error);
   }
 };
 

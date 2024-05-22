@@ -26,6 +26,15 @@
 
       <div v-if="data">
         <NuxtLink
+          to="/upload"
+          class="text-black text-decoration-none"
+          rel="noopener noreferrer"
+        >
+          <v-btn prepend-icon="mdi-file-multiple" variant="text">
+            Завантажити
+          </v-btn>
+        </NuxtLink>
+        <NuxtLink
           to="/files"
           class="text-black text-decoration-none"
           rel="noopener noreferrer"

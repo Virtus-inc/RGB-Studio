@@ -1,27 +1,16 @@
 <template>
   <v-container>
     <v-col class="d-flex flex-column justify-center align-center">
-      <v-card width="800" elevation="0">
-        <file-pond
-          ref="pond"
-          name="file"
-          label-idle="Перетягніть файли сюди або <span class='filepond--label-action'>Виберіть їх</span>"
-          accepted-file-types="application/pdf"
-          @addfile="handleAddFile"
-          class="mt-10"
-        />
-      </v-card>
-      <v-card v-for="item of files" :key="item" width="800" elevation="1" class="mt-5">
+      <v-card v-for="item of state.files" :key="item" width="800" elevation="1" class="mt-5">
         <v-col class="d-flex pb-0">
           <v-col class="d-flex flex-column pa-0">
             <v-card-title>
-              {{ item.name }}
+              Завантаживший файл
             </v-card-title>
-
             <v-card-subtitle>
-              К-ть сторінок: {{ item.pages }} <br/>
-              Розмір: {{ item.size }} <br/>
-              Формат: {{ item.contentType }} <br/>
+                Пошта: {{ state.email }} <br />
+                Ім'я: {{ state.name }} <br />
+                Фамілія: {{ state.surname }} <br />
             </v-card-subtitle>
           </v-col>
           
@@ -35,16 +24,17 @@
         <v-col>
           <v-expand-transition>
             <div v-show="show">
-              <v-divider></v-divider>
+                <v-divider />
 
-              <v-card-title>
-                Користувач загрузивший файл
-              </v-card-title>
-              <v-card-subtitle>
-                Пошта: {{ state.email.value }} <br />
-                Ім'я: {{ state.name.value }} <br />
-                Фамілія: {{ state.surname.value }} <br />
-              </v-card-subtitle>
+                <v-card-title>
+                    {{ item.name }}
+                </v-card-title>
+
+                <v-card-subtitle>
+                    К-ть сторінок: {{ item.pages }} <br/>
+                    Розмір: {{ item.size }} <br/>
+                    Формат: {{ item.contentType }} <br/>
+                </v-card-subtitle>
             </div>
           </v-expand-transition>
         </v-col>
@@ -55,73 +45,45 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import vueFilePond from 'vue-filepond';
-import 'filepond/dist/filepond.min.css';
 import { useRouter } from 'vue-router';
-import { useFetch } from '#imports';
-
 import { useUserData } from '~/composables/useUserData';
 
-const { data } = useUserData();
-
-const FilePond = vueFilePond();
-const pond = ref(null);
 const show = ref(false);
 const router = useRouter();
 
-const initialState = {
-  name: { value: '', errorMessage: '' },
-  email: { value: '', errorMessage: '' },
-  surname: { value: '', errorMessage: '' },
-  password: { value: '', errorMessage: '' },
+const form = {
+  name: '',
+  email: '',
+  surname: '',
+  password: '',
+  files: []
 }
 
 const files = ref([]);
 
-const handleAddFile = async (error: any, file: any) => {
-  if (error) {
-    console.error('Error adding file:', error);
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append('file', file.file, file.file.name.toString());
-
-  try {
-    const response = await $fetch('http://localhost:5000/files', {
-      method: "POST",
-      body: formData,
-      credentials: "include"
-    });
-
-    if (response) {
-      console.log('File uploaded successfully: ', response);
-      getFiles();
-    }
-  } catch (error) {
-    console.error('Error uploading file', error);
-  }
-};
-
 const state = reactive({
-  ...initialState,
+  ...form,
 })
+
+const { data } = useUserData();
 
 const getFiles = async () => {
   try {
-    const response = await $fetch('http://localhost:5000/files', {
+    const response = await $fetch(`http://localhost:5000/users/${data.value.user._id}`, {
       method: "GET",
       credentials: "include"
     });
 
+    console.log(data.value.user._id);
+    console.log(response)
+
     if (response && response.user) {
-      state.email.value = response.user.email;
-      state.name.value = response.user.name;
-      state.surname.value = response.user.surname;
+      state.email = response.user.email;
+      state.name = response.user.name;
+      state.surname = response.user.surname;
+      state.files = [...response.user.files];
 
-      files.value = response.files; // Обновляем весь массив файлов
-
-      console.log('Обновленный пакет файлов: ', files.value);
+      console.log('Обновленный пакет файлов: ', state);
     }
   } catch (error) {
     console.error('Error during login', error);

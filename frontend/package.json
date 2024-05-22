@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
+    "filepond": "^4.31.1",
     "nuxt": "^3.11.2",
     "vee-validate": "^4.12.8",
     "vue": "^3.4.27",
     "vue-advanced-cropper": "^2.8.8",
+    "vue-filepond": "^7.0.4",
     "vue-router": "^4.3.2",
     "vuetify-nuxt-module": "^0.14.0"
   }

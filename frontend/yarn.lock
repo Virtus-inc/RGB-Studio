@@ -2228,10 +2228,12 @@ __metadata:
   resolution: "RGB-Studio@workspace:."
   dependencies:
     "@mdi/font": "npm:^7.4.47"
+    filepond: "npm:^4.31.1"
     nuxt: "npm:^3.11.2"
     vee-validate: "npm:^4.12.8"
     vue: "npm:^3.4.27"
     vue-advanced-cropper: "npm:^2.8.8"
+    vue-filepond: "npm:^7.0.4"
     vue-router: "npm:^4.3.2"
     vuetify-nuxt-module: "npm:^0.14.0"
   languageName: unknown
@@ -3703,6 +3705,13 @@ __metadata:
   version: 1.0.0
   resolution: "file-uri-to-path@npm:1.0.0"
   checksum: 3b545e3a341d322d368e880e1c204ef55f1d45cdea65f7efc6c6ce9e0c4d22d802d5629320eb779d006fe59624ac17b0e848d83cc5af7cd101f206cb704f5519
+  languageName: node
+  linkType: hard
+
+"filepond@npm:^4.31.1":
+  version: 4.31.1
+  resolution: "filepond@npm:4.31.1"
+  checksum: 201cb5b978882d7b1929ece3c17a08db6575a6f692953b602fb48bf6bf1d0d1b3a54615712cff08d39d607c144d072d1a8b3d15f72bc3142666b756d70f76ea8
   languageName: node
   linkType: hard
 
@@ -7756,6 +7765,16 @@ __metadata:
   version: 0.1.0
   resolution: "vue-devtools-stub@npm:0.1.0"
   checksum: 527af4b887eb82b000e5f56d555618d0ef5494a10d0f701899e4e8b98773a6e4af33d282c47283fb2e8f7f640d05bced7c94b31968abf4a949bc3d92075c7ce0
+  languageName: node
+  linkType: hard
+
+"vue-filepond@npm:^7.0.4":
+  version: 7.0.4
+  resolution: "vue-filepond@npm:7.0.4"
+  peerDependencies:
+    filepond: ">=4.7.4 < 5.x"
+    vue: ">=3 < 4"
+  checksum: fbcc843b2c868e68d6878ad372af0d1e899d38f61cc4426d282650b22fa9422cfa7dfd6dcc3bc50dc28a1d750926328457e40b2d151ef34aad3350d614857988
   languageName: node
   linkType: hard
 

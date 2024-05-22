@@ -1,10 +1,13 @@
 const PDFParser = require("pdf-parse");
+const User = require('../models/user');
 const File = require('../models/file');
 
 exports.uploadFile = async (req, res) => {
   try {
     const userId = req.session.userId;
     const data = req.file;
+
+    const decodedName = Buffer.from(req.file.originalname, 'latin1').toString('utf8'); // Fix Mangled Cyrillic
 
     if (!data) {
       return res.status(400).send('No file uploaded.');
@@ -13,7 +16,7 @@ exports.uploadFile = async (req, res) => {
     const pdfData = await PDFParser(data.buffer);
 
     const file = await File.create({
-      name: data.originalname,
+      name: decodedName,
       pages: pdfData.numpages,
       size: data.size,
       data: data.buffer,
@@ -30,3 +33,7 @@ exports.uploadFile = async (req, res) => {
     res.status(500).send('An error occurred: ' + error.message);
   }
 };
+
+exports.getFiles = async (req, res) => {
+  res.json({ files: await File.find({ ownerId: req.session.userId }) || null, user: await User.findById(req.session.userId) || null });
+}

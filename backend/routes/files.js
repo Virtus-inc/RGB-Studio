@@ -3,8 +3,9 @@ const multer = require('multer');
 const router = express.Router();
 const upload = multer();
 const { loginRequired } = require('../controllers/auth');
-const { uploadFile } = require('../controllers/file');
+const { uploadFile, getFiles } = require('../controllers/file');
 
+router.get('/files', loginRequired, getFiles);
 router.post('/files', loginRequired, upload.single('file'), uploadFile);
 
 module.exports = router;

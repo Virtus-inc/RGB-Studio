@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-    const protectedRoutes = ['/profile'];
+    const protectedRoutes = ['/profile', '/files'];
 
     const isProtectedRoute = (path: string) => {
         return protectedRoutes.includes(path);

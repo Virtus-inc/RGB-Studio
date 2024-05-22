@@ -60,8 +60,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useUserData } from '@/composables/useData';
 import { useRouter } from 'nuxt/app'
+import { useUserData } from '~/composables/useUserData';
 
 interface LoginForm {
   name: string;
@@ -91,7 +91,8 @@ const sendForm = async () => {
       body: JSON.stringify(form.value),
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: "include"
     });
 
     if (response) {

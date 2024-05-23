@@ -32,7 +32,7 @@
 
               <v-card-subtitle>
                 К-ть сторінок: {{ item.pages }} <br/>
-                Розмір: {{ item.size }} <br/>
+                Розмір: {{ truncatedNumber(item.size) }} <br/>
                 Формат: {{ item.contentType }} <br/>
               </v-card-subtitle>
             </div>
@@ -62,6 +62,13 @@ const state = reactive({
 })
 
 const { data } = useUserData();
+
+const truncatedNumber = (value) => {
+  const digitsToKeep = 2;
+  const factor = Math.pow(10, Math.floor(Math.log10(+value)) + 1 - digitsToKeep);
+  const truncatedNumber = Math.floor((+value) / factor);
+  return truncatedNumber + ' КБ';
+}
 
 const getFiles = async () => {
   try {

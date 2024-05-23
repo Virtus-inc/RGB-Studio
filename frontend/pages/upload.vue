@@ -74,6 +74,10 @@ const form = {
   files: []
 }
 
+const state = reactive({
+  ...form,
+})
+
 const truncatedNumber = (value) => {
   const digitsToKeep = 2;
   const factor = Math.pow(10, Math.floor(Math.log10(+value)) + 1 - digitsToKeep);
@@ -104,10 +108,6 @@ const handleAddFile = async (error, file) => {
     console.error('Error uploading file', error);
   }
 };
-
-const state = reactive({
-  ...form,
-})
 
 const getFiles = async () => {
   try {

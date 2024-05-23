@@ -58,40 +58,25 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue';
 import { useRouter } from 'nuxt/app'
 import { useUserData } from '~/composables/useUserData';
-
-interface LoginForm {
-  name: string;
-  password: string;
-}
-
-interface UserData {
-  _id: string;
-  name: string;
-  surname: string;
-  email: string;
-}
-
-const form = ref<LoginForm>({
-  name: '',
-  password: ''
-});
 
 const visible = ref(false);
 const { setUserData } = useUserData();
 const router = useRouter();
 
+const form = ref({
+  name: '',
+  password: ''
+});
+
 const sendForm = async () => {
   try {
-    const response = await $fetch<UserData>('http://localhost:5000/auth/login', {
+    const response = await $fetch('http://localhost:5000/auth/login', {
       method: "POST",
       body: JSON.stringify(form.value),
-      headers: {
-        'Content-Type': 'application/json'
-      },
       credentials: "include"
     });
 

@@ -68,52 +68,34 @@
           href="#"
           rel="noopener noreferrer"
         >
-        Вхід <v-icon icon="mdi-chevron-right"></v-icon>
+        Вхід <v-icon icon="mdi-chevron-right" />
       </NuxtLink>
       </v-card-text>
     </v-card>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue';
 import { useRouter } from 'nuxt/app'
 import { useUserData } from '~/composables/useUserData';
 
-interface RegistrationForm {
-  email: string,
-  name: string;
-  surname: string,
-  password: string;
-}
+const visible = ref(false);
+const { setUserData } = useUserData();
+const router = useRouter();
 
-interface UserData {
-  _id: string;
-  name: string;
-  surname: string;
-  email: string;
-}
-
-const form = ref<RegistrationForm>({
+const form = ref({
   email: '',
   name: '',
   surname: '',
   password: ''
 });
 
-
-const visible = ref(false);
-const { setUserData } = useUserData();
-const router = useRouter();
-
 const sendForm = async () => {
   try {
-    const response = await $fetch<UserData>('http://localhost:5000/auth/register', {
+    const response = await $fetch('http://localhost:5000/auth/register', {
       method: "POST",
       body: JSON.stringify(form.value),
-      headers: {
-        'Content-Type': 'application/json'
-      },
       credentials: "include"
     });
     

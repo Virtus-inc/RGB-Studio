@@ -78,7 +78,7 @@
   </v-card>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { useUserData } from '~/composables/useUserData';
 const { data } = useUserData();
 </script>

@@ -11,7 +11,7 @@
           class="mt-10"
         />
       </v-card>
-      <v-card v-for="item of files" :key="item" width="800" elevation="1" class="mt-5">
+      <v-card v-for="item in state.files" :key="item._id" width="800" elevation="1" class="mt-5">
         <v-col class="d-flex pb-0">
           <v-col class="d-flex flex-column pa-0">
             <v-card-title>
@@ -35,15 +35,15 @@
         <v-col>
           <v-expand-transition>
             <div v-show="show">
-              <v-divider></v-divider>
+              <v-divider />
 
               <v-card-title>
                 Завантаживший файл
               </v-card-title>
               <v-card-subtitle>
-                Пошта: {{ state.email.value }} <br />
-                Ім'я: {{ state.name.value }} <br />
-                Фамілія: {{ state.surname.value }} <br />
+                Пошта: {{ state.email }} <br />
+                Ім'я: {{ state.name }} <br />
+                Фамілія: {{ state.surname }} <br />
               </v-card-subtitle>
             </div>
           </v-expand-transition>
@@ -53,34 +53,31 @@
   </v-container>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, onMounted } from 'vue';
 import vueFilePond from 'vue-filepond';
 import 'filepond/dist/filepond.min.css';
-import { useRouter } from 'vue-router';
 
 const FilePond = vueFilePond();
 const pond = ref(null);
 const show = ref(false);
-const router = useRouter();
 
-const initialState = {
-  name: { value: '', errorMessage: '' },
-  email: { value: '', errorMessage: '' },
-  surname: { value: '', errorMessage: '' },
-  password: { value: '', errorMessage: '' },
+const form = {
+  name: '',
+  email: '',
+  surname: '',
+  password: '',
+  files: []
 }
 
-const files = ref([]);
-
-const handleAddFile = async (error: any, file: any) => {
+const handleAddFile = async (error, file) => {
   if (error) {
     console.error('Error adding file:', error);
     return;
   }
 
   const formData = new FormData();
-  formData.append('file', file.file, file.file.name.toString());
+  formData.append('file', file.file);
 
   try {
     const response = await $fetch('http://localhost:5000/files', {
@@ -98,7 +95,7 @@ const handleAddFile = async (error: any, file: any) => {
 };
 
 const state = reactive({
-  ...initialState,
+  ...form,
 })
 
 const getFiles = async () => {
@@ -108,12 +105,11 @@ const getFiles = async () => {
       credentials: "include"
     });
 
-    if (response && response.user) {
-      state.email.value = response.user.email;
-      state.name.value = response.user.name;
-      state.surname.value = response.user.surname;
-
-      files.value = response.files; // Обновляем весь массив файлов
+    if (response && response?.user) {
+      state.email = response?.user?.email;
+      state.name = response?.user?.name;
+      state.surname = response?.user?.surname;
+      state.files = [...response?.files];
     }
   } catch (error) {
     console.error('Error during login', error);

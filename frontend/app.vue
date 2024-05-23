@@ -7,6 +7,6 @@
   </NuxtLayout>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { AppHeader } from '#components'
 </script>

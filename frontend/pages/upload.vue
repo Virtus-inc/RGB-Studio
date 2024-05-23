@@ -5,9 +5,11 @@
         <file-pond
           ref="pond"
           name="file"
+          allow-multiple="true"
           label-idle="Перетягніть файли сюди або <span class='filepond--label-action'>Виберіть їх</span>"
           accepted-file-types="application/pdf"
           @addfile="handleAddFile"
+          server="/"
           class="mt-10"
         />
       </v-card>
@@ -20,7 +22,7 @@
 
             <v-card-subtitle>
               К-ть сторінок: {{ item.pages }} <br/>
-              Розмір: {{ item.size }} <br/>
+              Розмір: {{ truncatedNumber(item.size) }} <br/>
               Формат: {{ item.contentType }} <br/>
             </v-card-subtitle>
           </v-col>
@@ -58,7 +60,9 @@ import { ref, onMounted } from 'vue';
 import vueFilePond from 'vue-filepond';
 import 'filepond/dist/filepond.min.css';
 
+// Create component
 const FilePond = vueFilePond();
+
 const pond = ref(null);
 const show = ref(false);
 
@@ -68,6 +72,13 @@ const form = {
   surname: '',
   password: '',
   files: []
+}
+
+const truncatedNumber = (value) => {
+  const digitsToKeep = 2;
+  const factor = Math.pow(10, Math.floor(Math.log10(+value)) + 1 - digitsToKeep);
+  const truncatedNumber = Math.floor((+value) / factor);
+  return truncatedNumber + ' КБ';
 }
 
 const handleAddFile = async (error, file) => {

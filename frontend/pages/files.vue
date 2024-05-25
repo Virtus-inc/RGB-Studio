@@ -78,10 +78,10 @@ const getFiles = async () => {
     });
 
     if (response && response.user) {
-      state.email = response.user.email;
-      state.name = response.user.name;
-      state.surname = response.user.surname;
-      state.files = [...response.user.files];
+      state.email = response?.user?.email;
+      state.name = response?.user?.name;
+      state.surname = response?.user?.surname;
+      state.files = [...response?.user?.files];
     }
   } catch (error) {
     console.error('Error during login', error);

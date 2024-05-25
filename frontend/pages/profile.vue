@@ -63,9 +63,9 @@ const getUser = async () => {
     });
 
     if (response && response.user) {
-      state.email = response.user.email;
-      state.name = response.user.name;
-      state.surname = response.user.surname;
+      state.email = response?.user?.email;
+      state.name = response?.user?.name;
+      state.surname = response?.user?.surname;
     }
   } catch (error) {
     console.error('Error during login', error);

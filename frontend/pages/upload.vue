@@ -116,7 +116,7 @@ const getFiles = async () => {
       credentials: "include"
     });
 
-    if (response && response?.user) {
+    if (response && response.user) {
       state.email = response?.user?.email;
       state.name = response?.user?.name;
       state.surname = response?.user?.surname;

@@ -17,7 +17,9 @@
           variant="outlined"
         />
 
-        <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+        <div
+          class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
+        >
           Пароль
         </div>
 
@@ -59,33 +61,33 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'nuxt/app'
-import { useUserData } from '~/composables/useUserData';
+import { ref } from "vue";
+import { useRouter } from "nuxt/app";
+import { useUserData } from "~/composables/useUserData";
 
 const visible = ref(false);
 const { setUserData } = useUserData();
 const router = useRouter();
 
 const form = ref({
-  name: '',
-  password: ''
+  name: "",
+  password: "",
 });
 
 const sendForm = async () => {
   try {
-    const response = await $fetch('http://localhost:5000/auth/login', {
+    const response = await $fetch("http://vds65115.hyperhost.name/auth/login", {
       method: "POST",
       body: JSON.stringify(form.value),
-      credentials: "include"
+      credentials: "include",
     });
 
     if (response) {
       setUserData(response);
-      router.push('/profile');
+      router.push("/profile");
     }
   } catch (error) {
-    console.error('Error during login', error);
+    console.error("Error during login", error);
   }
 };
 </script>

@@ -33,7 +33,9 @@
           variant="outlined"
         />
 
-        <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+        <div
+          class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
+        >
           Пароль
         </div>
 
@@ -68,43 +70,46 @@
           href="#"
           rel="noopener noreferrer"
         >
-        Вхід <v-icon icon="mdi-chevron-right" />
-      </NuxtLink>
+          Вхід <v-icon icon="mdi-chevron-right" />
+        </NuxtLink>
       </v-card-text>
     </v-card>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'nuxt/app'
-import { useUserData } from '~/composables/useUserData';
+import { ref } from "vue";
+import { useRouter } from "nuxt/app";
+import { useUserData } from "~/composables/useUserData";
 
 const visible = ref(false);
 const { setUserData } = useUserData();
 const router = useRouter();
 
 const form = ref({
-  email: '',
-  name: '',
-  surname: '',
-  password: ''
+  email: "",
+  name: "",
+  surname: "",
+  password: "",
 });
 
 const sendForm = async () => {
   try {
-    const response = await $fetch('http://localhost:5000/auth/register', {
-      method: "POST",
-      body: JSON.stringify(form.value),
-      credentials: "include"
-    });
-    
+    const response = await $fetch(
+      "http://vds65115.hyperhost.name/auth/register",
+      {
+        method: "POST",
+        body: JSON.stringify(form.value),
+        credentials: "include",
+      }
+    );
+
     if (response) {
       setUserData(response);
-      router.push('/profile');
+      router.push("/profile");
     }
   } catch (error) {
-    console.error('Error during registration', error);
+    console.error("Error during registration", error);
   }
 };
 </script>

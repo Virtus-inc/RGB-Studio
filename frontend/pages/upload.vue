@@ -13,7 +13,13 @@
           class="mt-10"
         />
       </v-card>
-      <v-card v-for="item in state.files" :key="item._id" width="800" elevation="1" class="mt-5">
+      <v-card
+        v-for="item in state.files"
+        :key="item._id"
+        width="800"
+        elevation="1"
+        class="mt-5"
+      >
         <v-col class="d-flex pb-0">
           <v-col class="d-flex flex-column pa-0">
             <v-card-title>
@@ -21,12 +27,12 @@
             </v-card-title>
 
             <v-card-subtitle>
-              К-ть сторінок: {{ item.pages }} <br/>
-              Розмір: {{ truncatedNumber(item.size) }} <br/>
-              Формат: {{ item.contentType }} <br/>
+              К-ть сторінок: {{ item.pages }} <br />
+              Розмір: {{ truncatedNumber(item.size) }} <br />
+              Формат: {{ item.contentType }} <br />
             </v-card-subtitle>
           </v-col>
-          
+
           <v-card-actions>
             <v-btn
               :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
@@ -39,9 +45,7 @@
             <div v-show="show">
               <v-divider />
 
-              <v-card-title>
-                Завантаживший файл
-              </v-card-title>
+              <v-card-title> Завантаживший файл </v-card-title>
               <v-card-subtitle>
                 Пошта: {{ state.email }} <br />
                 Ім'я: {{ state.name }} <br />
@@ -56,9 +60,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import vueFilePond from 'vue-filepond';
-import 'filepond/dist/filepond.min.css';
+import { ref, onMounted } from "vue";
+import vueFilePond from "vue-filepond";
+import "filepond/dist/filepond.min.css";
 
 // Create component
 const FilePond = vueFilePond();
@@ -67,53 +71,56 @@ const pond = ref(null);
 const show = ref(false);
 
 const form = {
-  name: '',
-  email: '',
-  surname: '',
-  password: '',
-  files: []
-}
+  name: "",
+  email: "",
+  surname: "",
+  password: "",
+  files: [],
+};
 
 const state = reactive({
   ...form,
-})
+});
 
 const truncatedNumber = (value) => {
   const digitsToKeep = 2;
-  const factor = Math.pow(10, Math.floor(Math.log10(+value)) + 1 - digitsToKeep);
-  const truncatedNumber = Math.floor((+value) / factor);
-  return truncatedNumber + ' КБ';
-}
+  const factor = Math.pow(
+    10,
+    Math.floor(Math.log10(+value)) + 1 - digitsToKeep
+  );
+  const truncatedNumber = Math.floor(+value / factor);
+  return truncatedNumber + " КБ";
+};
 
 const handleAddFile = async (error, file) => {
   if (error) {
-    console.error('Error adding file:', error);
+    console.error("Error adding file:", error);
     return;
   }
 
   const formData = new FormData();
-  formData.append('file', file.file);
+  formData.append("file", file.file);
 
   try {
-    const response = await $fetch('http://localhost:5000/files', {
+    const response = await $fetch("http://vds65115.hyperhost.name/files", {
       method: "POST",
       body: formData,
-      credentials: "include"
+      credentials: "include",
     });
 
     if (response) {
       getFiles();
     }
   } catch (error) {
-    console.error('Error uploading file', error);
+    console.error("Error uploading file", error);
   }
 };
 
 const getFiles = async () => {
   try {
-    const response = await $fetch('http://localhost:5000/files', {
+    const response = await $fetch("http://vds65115.hyperhost.name/files", {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
     });
 
     if (response && response.user) {
@@ -123,7 +130,7 @@ const getFiles = async () => {
       state.files = [...response?.files];
     }
   } catch (error) {
-    console.error('Error during login', error);
+    console.error("Error during login", error);
   }
 };
 

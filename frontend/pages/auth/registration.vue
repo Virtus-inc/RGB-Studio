@@ -95,14 +95,11 @@ const form = ref({
 
 const sendForm = async () => {
   try {
-    const response = await $fetch(
-      "http://vds65115.hyperhost.name/auth/register",
-      {
-        method: "POST",
-        body: JSON.stringify(form.value),
-        credentials: "include",
-      }
-    );
+    const response = await $fetch("http://localhost:5000/auth/register", {
+      method: "POST",
+      body: JSON.stringify(form.value),
+      credentials: "include",
+    });
 
     if (response) {
       setUserData(response);

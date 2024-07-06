@@ -102,7 +102,7 @@ const handleAddFile = async (error, file) => {
   formData.append("file", file.file);
 
   try {
-    const response = await $fetch("http://vds65115.hyperhost.name/files", {
+    const response = await $fetch("http://localhost:5000/files", {
       method: "POST",
       body: formData,
       credentials: "include",
@@ -118,7 +118,7 @@ const handleAddFile = async (error, file) => {
 
 const getFiles = async () => {
   try {
-    const response = await $fetch("http://vds65115.hyperhost.name/files", {
+    const response = await $fetch("http://localhost:5000/files", {
       method: "GET",
       credentials: "include",
     });

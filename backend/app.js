@@ -8,6 +8,8 @@ const { SESSION_SECRET, IS_PRODUCTION } = require('./configs');
 const cors = require('cors');
 const app = express();
 
+app.set('trust proxy', 'loopback');
+
 app.use(cors({
   origin: 'https://corepack.netlify.app',
   methods: [
@@ -36,7 +38,6 @@ app.use(
   })
 )
 
-console.log('SameSite: ' + IS_PRODUCTION);
 app.use('/auth', authRoutes);
 app.use('/', filesRoutes, usersRoutes);
 

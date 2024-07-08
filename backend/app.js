@@ -1,12 +1,24 @@
 const express = require('express');
 const expressSession = require('express-session');
+const https = require('https');
+const fs = require('fs');
 const authRoutes = require('./routes/auth');
 const filesRoutes = require('./routes/files');
 const usersRoutes = require('./routes/users');
 const { SESSION_SECRET, IS_PRODUCTION } = require('./configs');
 
 const cors = require('cors');
+
+const options = {
+  key: fs.readFileSync('/var/www/httpd-cert/vds65115.hyperhost.name_2024-07-06-20-13_39.key'),
+  cert: fs.readFileSync('/var/www/httpd-cert/vds65115.hyperhost.name_2024-07-06-20-13_39.crt'),
+  requestCert: false,
+  rejectUnauthorized: false
+};
+
+
 const app = express();
+const server = https.createServer(options, app).listen(5000);
 
 app.set('trust proxy', 'loopback');
 

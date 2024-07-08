@@ -76,7 +76,7 @@ const form = ref({
 
 const sendForm = async () => {
   try {
-    const response = await $fetch("http://localhost:5000/auth/login", {
+    const response = await $fetch("https://localhost:5000/auth/login", {
       method: "POST",
       body: JSON.stringify(form.value),
       credentials: "include",

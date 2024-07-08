@@ -80,7 +80,7 @@ const truncatedNumber = (value) => {
 const getFiles = async () => {
   try {
     const response = await $fetch(
-      `http://localhost:5000/users/${data.value.user._id}`,
+      `https://localhost:5000/users/${data.value.user._id}`,
       {
         method: "GET",
         credentials: "include",

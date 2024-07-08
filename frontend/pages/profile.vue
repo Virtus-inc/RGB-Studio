@@ -40,7 +40,7 @@ const { data } = useUserData();
 const getUser = async () => {
   try {
     const response = await $fetch(
-      `http://localhost:5000/users/${data.value.user._id}`,
+      `https://localhost:5000/users/${data.value.user._id}`,
       {
         method: "GET",
         credentials: "include",
@@ -60,7 +60,7 @@ const getUser = async () => {
 const updateUser = async () => {
   try {
     const response = await fetch(
-      `http://localhost:5000/users/${data.value.user._id}`,
+      `https://localhost:5000/users/${data.value.user._id}`,
       {
         method: "PATCH",
         body: JSON.stringify(state),

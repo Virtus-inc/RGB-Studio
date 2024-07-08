@@ -35,6 +35,8 @@ app.use(
     }
   })
 )
+
+console.log('SameSite: ' + IS_PRODUCTION);
 app.use('/auth', authRoutes);
 app.use('/', filesRoutes, usersRoutes);
 

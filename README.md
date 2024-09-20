@@ -1,6 +1,6 @@
-<p align="center">Это проект из моего портфолио на Nuxt 3 и Vue 3</p>
+##Это проект из моего портфолио на Nuxt 3 и Vue 3###
 
-### Install (головне щоб yarn був встановлений через corepack, ішакше не спрацює, тоді локально можно через npm або через bun заинсталить и запустить)
+###Install (the main thing is that yarn is installed via corepack, otherwise it won’t work, then you can install and run it locally via npm or via bun)
 
 ```
 rm -f yarn.lock
